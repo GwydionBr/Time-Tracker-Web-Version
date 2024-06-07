@@ -4,7 +4,9 @@ import TimerInput from "./TimerInput";
 
 function TimerLayout(props){
   const [timerProject, setProject] = useState("");
-  const [timerSalary, setSalary] = useState("");
+  const [timerSalary, setSalary] = useState(0);
+  const [projectName, setProjectName] = useState("");
+  const [projectSalary, setProjectSalary] = useState(0);
 
   function handleProjectChange(event){
     const newValue = event.target.value;
@@ -16,6 +18,19 @@ function TimerLayout(props){
     const newValue = event.target.value;
     console.log(newValue);
     setSalary(newValue)
+  }
+
+  function startTimer(){
+    setProjectName(timerProject);
+    setProject("");
+    setSalary("");
+    setProjectSalary(timerSalary / 3600)
+    props.start();
+  }
+
+  function stopTimer(){
+    setProjectName("");
+    props.stop();
   }
 
   // transform Seconds in display Time
@@ -33,29 +48,38 @@ function TimerLayout(props){
     if (s < 10){
       s = "0" +s;
     }
-
-    return (h + ":" + m + ":" + s)
+    return (h + ":" + m + ":" + s);
   }
 
   return (
     <div className="container">
       <div className="timerLayout">
-        <p className="timeDisplay">{displayTime(props.time)}</p>
-        <TimerInput 
-          timerProject={timerProject} 
-          timerSalary={timerSalary}
-          handleProjectChange={handleProjectChange}
-          handleSalaryChange={handleSalaryChange}
-          />
+
+        {/* Active Timer Interface */}
+        { props.isTimerActive || props.isTimerPaused ?
+        <div>
+          <h2>{projectName}</h2>
+          <p className="timeDisplay">{displayTime(props.time)}</p>
+          <p>{(projectSalary * props.time).toFixed(2)} $</p>
+        </div>
+        :
+        null}
+
+        {/* Input Interface */}
+        { !props.isTimerActive && !props.isTimerPaused &&
+          <TimerInput 
+          timerProject={timerProject} timerSalary={timerSalary}
+          handleProjectChange={handleProjectChange} handleSalaryChange={handleSalaryChange}
+          />}
+
+        {/* Timer Buttons */}
         <div className="container">
-        {!props.isTimerActive && !props.isTimerPaused && <StartButton start={props.start}/>}
+        {!props.isTimerActive && !props.isTimerPaused && <StartButton startTimer={startTimer}/>}
         {props.isTimerActive &&  !props.isTimerPaused && <PauseButton pause={props.pause}/>}
         {!props.isTimerActive && props.isTimerPaused && <ContinueButton continue={props.continue}/>}
-        {props.isTimerActive && <StopButton stop={props.stop}/>}
-          
-          
-          
+        {props.isTimerActive && <StopButton stopTimer={stopTimer}/>}
         </div> 
+
       </div>
     </div>
   )

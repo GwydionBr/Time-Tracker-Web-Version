@@ -20,21 +20,21 @@ function App() {
     return () => clearInterval(timer);
   }, [isTimerActive]);
 
-  function startTimer(){
+  function startT(){
     setTimer(true);
   }
 
-  function pauseTimer(){
+  function pauseT(){
     setTimer(false);
     setPause(true);
   }
 
-  function continueTimer(){
+  function continueT(){
     setTimer(true);
     setPause(false);
   }
 
-  function stopTimer(){
+  function stopT(){
     setTimer(false);
     setTime(0);
   }
@@ -43,10 +43,10 @@ function App() {
     <>
       <Header />
       <TimerLayout 
-        start={startTimer}
-        pause={pauseTimer}
-        continue={continueTimer}
-        stop={stopTimer}
+        start={startT}
+        pause={pauseT}
+        continue={continueT}
+        stop={stopT}
         time={time}
         isTimerActive={isTimerActive}
         isTimerPaused={isTimerPaused}

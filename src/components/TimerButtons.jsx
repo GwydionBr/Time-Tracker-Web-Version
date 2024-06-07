@@ -8,7 +8,7 @@ function StartButton(props){
   return(
     <Zoom in={true}>
       <Fab className="customFab">
-        <PlayCircleIcon fontSize="large" onClick={props.start}/>
+        <PlayCircleIcon fontSize="large" onClick={props.startTimer}/>
       </Fab>
     </Zoom>
   )
@@ -38,7 +38,7 @@ function StopButton(props){
   return(
     <Zoom in={true}>
       <Fab className="customFab">
-        <StopCircleIcon fontSize="large" onClick={props.stop}/>
+        <StopCircleIcon fontSize="large" onClick={props.stopTimer}/>
       </Fab>
     </Zoom>
   )

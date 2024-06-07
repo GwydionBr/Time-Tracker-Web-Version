@@ -6,7 +6,7 @@ function TimerInput(props){
       <label>Project:</label><br/>
       <input type="text" value={props.timerProject} onChange={props.handleProjectChange} id="project"/><br/>
       <label>$/hour</label><br/>
-      <input type="text" value={props.timerSalary} onChange={props.handleSalaryChange} id="salary"/>
+      <input type="number" value={props.timerSalary} onChange={props.handleSalaryChange} id="salary" step="0.1"/>
     </form>
   )
 }
