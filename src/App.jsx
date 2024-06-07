@@ -1,6 +1,8 @@
+import {useState, useEffect} from "react";
 import Header from "./components/Header";
 import TimerLayout from "./components/TimerLayout";
-import {useState, useEffect} from "react";
+import ProjectOverview from "./components/ProjectOverview";
+
 
 
 function App() {
@@ -51,6 +53,7 @@ function App() {
         isTimerActive={isTimerActive}
         isTimerPaused={isTimerPaused}
       />
+      <ProjectOverview />
     </>
   )
 }
