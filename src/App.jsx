@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import Header from "./components/Header";
 import TimerLayout from "./components/TimerLayout";
 import ProjectOverview from "./components/ProjectOverview";
@@ -9,6 +9,8 @@ function App() {
   const [isTimerActive, setTimer] = useState(false);
   const [isTimerPaused, setPause] = useState(false);
   const [time, setTime] = useState(0); // Zeit in Sekunden speichern
+
+  // Start Timer Logic and Handling
 
   useEffect(() => {
     let timer = null;
@@ -25,21 +27,20 @@ function App() {
   function startT(){
     setTimer(true);
   }
-
   function pauseT(){
     setTimer(false);
     setPause(true);
   }
-
   function continueT(){
     setTimer(true);
     setPause(false);
   }
-
   function stopT(){
     setTimer(false);
     setTime(0);
   }
+
+  // End Timer Logic
 
   return (
     <>
