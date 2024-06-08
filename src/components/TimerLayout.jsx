@@ -63,6 +63,7 @@ function TimerLayout(props){
   }
   function stopTimer(){
     setProjectName("");
+    props.addSession(projectName, projectSalary);
     props.stop();
   }
 
