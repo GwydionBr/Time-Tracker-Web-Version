@@ -6,10 +6,27 @@ import ProjectOverview from "./components/ProjectOverview";
 
 
 function App() {
+
+  // Import Data from server 
+
+  const [projects, setProjects] = useState([]);
+  useEffect(() => {
+     fetch("http://localhost:3000/read")
+        .then((response) => response.json())
+        .then((data) => {
+           setProjects(data);
+        })
+        .catch((err) => {
+           console.log(err.message);
+        });
+  }, []);
+
+
+  // Tracked variables for Timer
+
   const [isTimerActive, setTimer] = useState(false);
   const [isTimerPaused, setPause] = useState(false);
   const [time, setTime] = useState(0); // Zeit in Sekunden speichern
-
 
   // Start Timer Logic and Handling
 
@@ -54,8 +71,11 @@ function App() {
         time={time}
         isTimerActive={isTimerActive}
         isTimerPaused={isTimerPaused}
+        projects={projects}
       />
-      <ProjectOverview />
+      <ProjectOverview 
+        projects={projects}
+      />
     </>
   )
 }

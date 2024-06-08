@@ -1,26 +1,15 @@
 import React, {useState, useEffect} from "react";
 import displayTime from "../assets/logicFunctions";
 
-function ProjectOverview(){
+function ProjectOverview(props){
 
-  const [projects, setProjects] = useState([]);
-   useEffect(() => {
-      fetch("http://localhost:3000/read")
-         .then((response) => response.json())
-         .then((data) => {
-            console.log(data);
-            setProjects(data);
-         })
-         .catch((err) => {
-            console.log(err.message);
-         });
-   }, []);
+  
 
 
   return(
     
     <div className="projectOverview">
-      {projects.map( project => (
+      {props.projects.map( project => (
         <div>
           <div className="project">
             <h3>{project.projectName}</h3>
