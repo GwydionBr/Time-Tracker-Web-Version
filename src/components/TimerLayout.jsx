@@ -4,22 +4,28 @@ import TimerInput from "./TimerInput";
 import displayTime from "../assets/logicFunctions";
 
 function TimerLayout(props){
+
   const [timerProject, setProject] = useState("");
   const [timerSalary, setSalary] = useState(0);
   const [projectName, setProjectName] = useState("");
   const [projectSalary, setProjectSalary] = useState(0);
+
+
+  // Handle Input Changes
 
   function handleProjectChange(event){
     const newValue = event.target.value;
     console.log(newValue);
     setProject(newValue);
   }
-
   function handleSalaryChange(event){
     const newValue = event.target.value;
     console.log(newValue);
     setSalary(newValue)
   }
+
+
+  // Additional Timer handling. Mainly for the Layout
 
   function startTimer(){
     setProjectName(timerProject);
@@ -28,11 +34,11 @@ function TimerLayout(props){
     setProjectSalary(timerSalary / 3600)
     props.start();
   }
-
   function stopTimer(){
     setProjectName("");
     props.stop();
   }
+
 
   return (
     <div className="container">
@@ -67,5 +73,6 @@ function TimerLayout(props){
     </div>
   )
 }
+
 
 export default TimerLayout;

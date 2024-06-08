@@ -10,6 +10,7 @@ function App() {
   const [isTimerPaused, setPause] = useState(false);
   const [time, setTime] = useState(0); // Zeit in Sekunden speichern
 
+
   // Start Timer Logic and Handling
 
   useEffect(() => {
@@ -39,8 +40,8 @@ function App() {
     setTimer(false);
     setTime(0);
   }
-
   // End Timer Logic
+
 
   return (
     <>
@@ -58,5 +59,6 @@ function App() {
     </>
   )
 }
+
 
 export default App;

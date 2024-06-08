@@ -3,13 +3,13 @@ import displayTime from "../assets/logicFunctions";
 
 function ProjectOverview(){
 
-  const [sessions, setSessions] = useState([]);
+  const [projects, setProjects] = useState([]);
    useEffect(() => {
       fetch("http://localhost:3000/read")
          .then((response) => response.json())
          .then((data) => {
             console.log(data);
-            setSessions(data);
+            setProjects(data);
          })
          .catch((err) => {
             console.log(err.message);
@@ -18,20 +18,27 @@ function ProjectOverview(){
 
 
   return(
-    <div className="container">
-      <div className="projectOverview">
-          <h3>Project: Project 1</h3>
-          <h4>Salary: 26 $</h4>
-
-          {sessions.map(session => (
-            <div className="session">
-              <p>Time Spent:{displayTime(session.timespent)}</p>
-              <p>Money earned: {session.moneyearned} $</p>
-              <p>Date: {session.date}</p>
-              <p>Time: {session.time}</p>
-            </div>
-          ))}        
-      </div>
+    
+    <div className="projectOverview">
+      {projects.map( project => (
+        <div>
+          <div className="project">
+            <h3>{project.projectName}</h3>
+            <h4>{project.projectDescription}</h4>
+            <h4>{project.projectSalary} $/h</h4>
+            {project.sessions.map( session => (
+              <div className="session">
+               <ul className="sessionList">
+                <li>Time Spent: <strong>{session.time_spent}</strong></li>
+                <li>Money Earned: <strong>{session.money_earned}</strong></li>
+                <li>Date: <strong>{session.date}</strong></li>
+                <li>Time: <strong>{session.time}</strong></li>
+               </ul>
+              </div>
+            ))}
+          </div> 
+        </div>
+      ))}
     </div>
   )
 }
