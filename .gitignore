@@ -25,7 +25,6 @@ dist-ssr
 
 # personal 
 .env
-server.js
 
 #npm 
 package-lock.json
