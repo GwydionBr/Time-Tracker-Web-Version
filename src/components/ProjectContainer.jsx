@@ -7,11 +7,13 @@ function ProjectContainer(props){
   const {projectName, projectDescription, projectSalary} = project;
 
   return(
-          <div className="project">
-            <DeleteProjectButton id={project.projectId} setProjects={props.setProjects}/>
-            <h3>{projectName}</h3>
-            <h4>{projectDescription}</h4>
-            <h4>{projectSalary} $/h</h4>
+          <div className="projectContainer">
+            <div className="container">
+              <p className="projectName">{projectName}</p>
+              <DeleteProjectButton id={project.projectId} setProjects={props.setProjects}/>
+            </div>
+            <p className="projectDescrption">{projectDescription}</p>
+            <p className="projectSalary">{projectSalary} $/h</p>
             {project.sessions.map( session => (
               <SessionContainer key={session.id} session={session} setProjects={props.setProjects}/>
             ))}

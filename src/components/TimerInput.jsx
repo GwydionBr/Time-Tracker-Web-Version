@@ -3,13 +3,19 @@ import React from "react";
 function StartSelector(props){
 
   return(
-      <form className="startForm" >
-        <p>Do you want to create a new Project or use an old one?</p>
-        <input type="radio" id="newProject" name="projectSelector" value="new" onClick={props.new}></input>
-        <label>New Project</label>
-        <input type="radio" id="oldProject" name="projectSelector" value="old" onClick={props.old}></input>
-        <label>Exisiting Project</label>
+    <div>
+      <p>Do you want to create a new Project or use an old one?</p>
+      <form className="startForm container" >
+        <div className="radioContainer" onClick={props.new}>
+          <input type="radio" id="newProject" name="projectSelector" value="new"></input>
+          <label>New Project</label>
+        </div>
+        <div className="radioContainer" onClick={props.old}>
+          <input type="radio" id="oldProject" name="projectSelector" value="old" ></input>
+          <label>Exisiting Project</label>
+        </div>
       </form>
+      </div>
   )
 }
 

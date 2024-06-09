@@ -4,7 +4,7 @@ body {
 
 header {
   background-color: #2A629A;
-  margin: auto -16px;
+  margin: -8px -8px;
   padding: 16px 32px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
   text-align: center;
@@ -19,6 +19,7 @@ header h1 {
 .container{
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 5px;
 }
 
@@ -35,30 +36,55 @@ header h1 {
 }
 
 .startForm{
-  margin: 20px;  
+  margin: 20px; 
+   
 }
 
 .timeDisplay{
   font-size: 50px;
 }
 
+/* Project Overview area */
 .projectOverview{
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
   margin-top: 20px;
 }
 
-.project{
+/* Project Container */
+.projectContainer{
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 350px;
   background-color: white;
-  border-radius: 20%;
   gap: 5px;
   padding: 30px 0px;
 }
+
+.projectContainer:hover{
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+}
+
+.projectName{
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  max-width: 300px;
+}
+
+.projectDescription{
+  font-size: 15px;
+}
+
+.projectSalary{
+  font-size: 15px;
+}
+
+
+/* Session Container */
 
 .session{
   background-color: aqua;
@@ -74,7 +100,14 @@ header h1 {
 }
 
 
+
+
 .deleteFab{
   background-color: #FF0000 !important;
   color: #FFFFFF !important;
+}
+
+.deleteFab:hover{
+  background-color: #FF0000 !important;
+  color: #000000 !important;
 }
