@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Header from "./components/Header";
 import TimerLayout from "./components/TimerLayout";
 import ProjectOverview from "./components/ProjectOverview";
+import { fetchProjects, addSessionAndUpdate } from "./components/ServerComunication";
 
 function App() {
   // Tracked variables for Timer
@@ -9,62 +10,27 @@ function App() {
   const [isTimerPaused, setPause] = useState(false);
   const [time, setTime] = useState(0); // Safe time in Seconds
 
-  // Import Data from server
+  // Tracked variables for Server Communication and Projects
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Fetch Projects from Server
   useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const response = await fetch("http://localhost:3000/read");
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await response.json();
-        setProjects(data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProjects();
+    fetchProjects(setProjects, setLoading, setError);
   }, []);
 
   // Add Session and Update projects
   const addSession = async (name, salary, description) => {
+    // Calculate eraned money, project salary, and current date and time
     const earnedMoney = (time * salary).toFixed(2);
     const projectSalary = salary * 3600;
     const now = new Date();
     const date = `${now.getDate().toString().padStart(2, '0')}:${(now.getMonth() + 1).toString().padStart(2, '0')}:${now.getFullYear()}`;
     const currentTime = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+    // Add the session to the database
+    addSessionAndUpdate(name, description, projectSalary, time, earnedMoney, date, currentTime, setProjects);
 
-    console.log(name, earnedMoney, date, currentTime);
-
-    try {
-      const response = await fetch("http://localhost:3000/add", {
-        method: "POST",
-        body: JSON.stringify({
-          projectName: name,
-          projectDescription: description,
-          projectSalary: projectSalary,
-          timeSpent: time,
-          moneyEarned: earnedMoney,
-          date: date,
-          time: currentTime,
-        }),
-        headers: {
-          "Content-Type": "application/json; charset=UTF-8",
-        },
-      });
-
-      const data = await response.json();
-      setProjects(data);
-    } catch (err) {
-      console.log(err.message);
-    }
   };
 
   // Start Timer Logic and Handling
