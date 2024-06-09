@@ -8,6 +8,8 @@ function TimerLayout(props){
 
   const [timerProject, setTimerProject] = useState("");
   const [timerSalary, setTimerSalary] = useState(0);
+  const [timerDescription, setTimerDescription] = useState("");
+  const [projectDescription, setProjectDescription] = useState("");
   const [projectName, setProjectName] = useState();
   const [projectSalary, setProjectSalary] = useState(0);
   const [isProjectNew, setNewProject] = useState(false);
@@ -24,6 +26,10 @@ function TimerLayout(props){
     const newValue = event.target.value;
     setTimerSalary(newValue)
   }
+  function handleDescriptionChange(event){
+    const newValue = event.target.value;
+    setTimerDescription(newValue);
+  }
 
   function newProjectSelected(){
     setNewProject(true);
@@ -38,29 +44,24 @@ function TimerLayout(props){
     const selectedProject = props.projects.find((project) => project.projectId === id)
     setTimerProject(selectedProject.projectName);
     setTimerSalary(selectedProject.projectSalary);
+    setTimerDescription(selectedProject.projectDescription);
   }
 
 
   // Additional Timer handling. Mainly for the Layout
 
   function startTimer(){
-    if(timerProject === ""){
-      setProjectName(defaultProject.projectName);
-    } else {
-      setProjectName(timerProject);
-    }
-    if (timerSalary === 0){
-      setProjectSalary(defaultProject.projectSalary / 3600);
-    } else {
-      setProjectSalary(timerSalary / 3600);
-    }
+    timerProject === "" ? setProjectName(defaultProject.projectName) : setProjectName(timerProject);
+    timerSalary === 0 ? setProjectSalary(defaultProject.projectSalary / 3600) : setProjectSalary(timerSalary / 3600);
+    setProjectDescription(timerDescription);
+    setTimerDescription("");
     setTimerProject("");
     setTimerSalary(0);
     props.start();
   }
   function stopTimer(){
+    props.addSession(projectName, projectSalary, projectDescription);
     setProjectName("");
-    props.addSession(projectName, projectSalary);
     props.stop();
   }
 
@@ -88,8 +89,8 @@ function TimerLayout(props){
         }
         { !props.isTimerActive && !props.isTimerPaused && isProjectNew &&
           <NewProjectInput 
-            timerProject={timerProject} timerSalary={timerSalary}
-            handleProjectChange={handleProjectChange} handleSalaryChange={handleSalaryChange}
+            timerProject={timerProject} timerSalary={timerSalary} timerDescription={timerDescription}
+            handleProjectChange={handleProjectChange} handleSalaryChange={handleSalaryChange} handleDescriptionChange={handleDescriptionChange}
           />}
         { !props.isTimerActive && !props.isTimerPaused && isProjectOld &&
           <SelectProjectInput projects={props.projects} selectProjectName={selectOldProjectName}

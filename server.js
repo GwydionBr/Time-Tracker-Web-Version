@@ -52,8 +52,7 @@ app.get("/read", async (req, res) => {
 
 // Add session into the database
 app.post("/add", async (req, res) => {
-  const { projectName, projectSalary, timeSpent, moneyEarned, date, time } = req.body;
-  console.log(projectName, projectSalary, timeSpent, moneyEarned, date, time);
+  const { projectName, projectSalary, projectDescription, timeSpent, moneyEarned, date, time } = req.body;
   try {
     // Check if the project already exists
     let data = await db.query("SELECT id FROM projects WHERE project_name = $1", [projectName]);
@@ -63,8 +62,8 @@ app.post("/add", async (req, res) => {
     if (!project_id) {
       try {
         data = await db.query(
-          "INSERT INTO projects (project_name, project_salary) VALUES ($1, $2) RETURNING id", 
-          [projectName, projectSalary]
+          "INSERT INTO projects (project_name, project_description, project_salary) VALUES ($1, $2, $3) RETURNING id", 
+          [projectName, projectDescription, projectSalary]
         );
         project_id = data.rows[0].id;
       } catch (err) {

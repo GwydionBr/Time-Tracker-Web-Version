@@ -34,7 +34,7 @@ function App() {
   }, []);
 
   // Add Session and Update projects
-  const addSession = async (name, salary) => {
+  const addSession = async (name, salary, description) => {
     const earnedMoney = (time * salary).toFixed(2);
     const projectSalary = salary * 3600;
     const now = new Date();
@@ -48,6 +48,7 @@ function App() {
         method: "POST",
         body: JSON.stringify({
           projectName: name,
+          projectDescription: description,
           projectSalary: projectSalary,
           timeSpent: time,
           moneyEarned: earnedMoney,
