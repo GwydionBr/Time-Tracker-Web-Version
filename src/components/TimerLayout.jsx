@@ -18,12 +18,10 @@ function TimerLayout(props){
 
   function handleProjectChange(event){
     const newValue = event.target.value;
-    console.log(newValue);
     setTimerProject(newValue);
   }
   function handleSalaryChange(event){
     const newValue = event.target.value;
-    console.log(newValue);
     setTimerSalary(newValue)
   }
 
