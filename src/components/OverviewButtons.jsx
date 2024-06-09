@@ -3,6 +3,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { Fab } from "@mui/material";
 import { Zoom } from "@mui/material";
 
+const iconSize = 30;
+
 function DeleteSessionButton(props){
   const id = props.id;
   const deleteSession = async () => {
@@ -20,8 +22,8 @@ function DeleteSessionButton(props){
 
   return(
     <Zoom in={true}>
-      <Fab className="deleteFab">
-        <DeleteIcon fontSize="small" onClick={deleteSession}/>
+      <Fab className="deleteFab" size="small" style={{ transform: 'scale(0.7)' }}>
+        <DeleteIcon sx={{ fontSize: iconSize }} onClick={deleteSession}/>
       </Fab>
     </Zoom>
   )
@@ -44,8 +46,8 @@ function DeleteProjectButton(props){
 
   return(
     <Zoom in={true}>
-      <Fab className="deleteFab">
-        <DeleteIcon fontSize="small" onClick={deleteProject}/>
+      <Fab className="deleteFab" size="small" style={{ transform: 'scale(0.7)' }}>
+        <DeleteIcon sx={{ fontSize: iconSize }} onClick={deleteProject}/>
       </Fab>
     </Zoom>
   )
