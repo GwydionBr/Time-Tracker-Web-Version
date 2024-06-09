@@ -1,5 +1,6 @@
 import React from "react";
 import SessionContainer from "./SessionContainer";
+import {DeleteProjectButton} from "./OverviewButtons";
 
 function ProjectContainer(props){
   const project = props.project;
@@ -7,6 +8,7 @@ function ProjectContainer(props){
 
   return(
           <div className="project">
+            <DeleteProjectButton id={project.projectId}/>
             <h3>{projectName}</h3>
             <h4>{projectDescription}</h4>
             <h4>{projectSalary} $/h</h4>
