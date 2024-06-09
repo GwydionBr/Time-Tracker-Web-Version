@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import displayTime from "../assets/logicFunctions";
+import {displayTime} from "../assets/logicFunctions";
 import ProjectContainer from "./ProjectContainer";
 
 function ProjectOverview(props){

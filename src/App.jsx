@@ -26,7 +26,7 @@ function App() {
     const earnedMoney = (time * salary).toFixed(2);
     const projectSalary = salary * 3600;
     const now = new Date();
-    const date = `${now.getDate().toString().padStart(2, '0')}:${(now.getMonth() + 1).toString().padStart(2, '0')}:${now.getFullYear()}`;
+    const date = `${now.getDate().toString().padStart(2, '0')}.${(now.getMonth() + 1).toString().padStart(2, '0')}.${now.getFullYear()}`;
     const currentTime = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
     // Add the session to the database
     addSessionAndUpdate(name, description, projectSalary, time, earnedMoney, date, currentTime, setProjects);

@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {StartButton, PauseButton, ContinueButton, StopButton } from "./TimerButtons";
 import {NewProjectInput, StartSelector, SelectProjectInput} from "./TimerInput";
-import displayTime from "../assets/logicFunctions";
+import {displayTime} from "../assets/logicFunctions";
 
 function TimerLayout(props){
   const defaultProject = props.projects[0];

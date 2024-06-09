@@ -1,5 +1,6 @@
 import React from "react";
 import {DeleteSessionButton} from "./OverviewButtons";
+import {displayShortTimeFormat} from "../assets/logicFunctions";
 
 function SessionContainer(props){
   const session = props.session;
@@ -8,8 +9,8 @@ function SessionContainer(props){
         <div className="session">
           <DeleteSessionButton id={session.id} setProjects={props.setProjects}/>
           <ul className="sessionList">
-            <li>Time Spent: <strong>{time_spent}</strong></li>
-            <li>Money Earned: <strong>{money_earned}</strong></li>
+            <li>Time Spent: <strong>{displayShortTimeFormat(time_spent)}</strong></li>
+            <li>Money Earned: <strong>{money_earned} $</strong></li>
             <li>Date: <strong>{date}</strong></li>
             <li>Time: <strong>{time}</strong></li>
           </ul>
