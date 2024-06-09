@@ -18,7 +18,7 @@ function ProjectContainer(props){
             {project.sessions.map( session => (
               <SessionContainer key={session.id} session={session} setProjects={props.setProjects}/>
             ))}
-            <AddSessionButton />
+            <AddSessionButton setProjects={props.setProjects} projectId={project.projectId}/>
           </div> 
   )
 }

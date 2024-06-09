@@ -14,7 +14,7 @@ const fetchProjects = async (setProjects, setLoading, setError) => {
   }
 };
 
-const addSessionAndUpdate = async (name, description, salary, logTime, earnedMoney, currentDate, currentTime, setProjects) => {
+const addSessionAndProject = async (name, description, salary, logTime, earnedMoney, currentDate, currentTime, setProjects) => {
   try {
     const response = await fetch("http://localhost:3000/add", {
       method: "POST",
@@ -22,6 +22,28 @@ const addSessionAndUpdate = async (name, description, salary, logTime, earnedMon
         projectName: name,
         projectDescription: description,
         projectSalary: salary,
+        timeSpent: logTime,
+        moneyEarned: earnedMoney,
+        date: currentDate,
+        time: currentTime,
+      }),
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+      },
+    });
+    const data = await response.json();
+    setProjects(data);
+  } catch (err) {
+    console.log(err.message);
+  }
+}
+
+const addSession = async (project_id, logTime, earnedMoney, currentDate, currentTime, setProjects) => {
+  try {
+    const response = await fetch("http://localhost:3000/addSession", {
+      method: "POST",
+      body: JSON.stringify({
+        project_id: project_id,
         timeSpent: logTime,
         moneyEarned: earnedMoney,
         date: currentDate,
@@ -86,4 +108,4 @@ const deleteProject = async (id, setProjects) => {
   }
 };
 
-export {fetchProjects, addSessionAndUpdate, deleteSession, deleteProject, addProject};
+export {fetchProjects, addSessionAndProject, deleteSession, deleteProject, addProject, addSession};
