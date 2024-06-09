@@ -95,6 +95,39 @@ app.post("/add", async (req, res) => {
   }
 });
 
+
+// Delete session from the database
+app.delete("/deleteSession/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    await db.query("DELETE FROM sessions WHERE id = $1", [id]);
+    const sessions = await db.query("SELECT * FROM sessions ORDER BY id DESC");
+    const projects = await db.query("SELECT * FROM projects ORDER BY id ASC");
+    const items = formatProjectsWithSessions(sessions.rows, projects.rows);
+    res.status(200).json(items);
+  } catch (err) {
+    console.error("Error in delete request:", err);
+    res.status(500).json({ error: "Something went wrong. Please try again later!" });
+  }
+});
+
+
+// Delete project from the database
+app.delete("/deleteProject/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    await db.query("DELETE FROM sessions WHERE project_id = $1", [id]);
+    await db.query("DELETE FROM projects WHERE id = $1", [id]);
+    const sessions = await db.query("SELECT * FROM sessions ORDER BY id DESC");
+    const projects = await db.query("SELECT * FROM projects ORDER BY id ASC");
+    const items = formatProjectsWithSessions(sessions.rows, projects.rows);
+    res.status(200).json(items);
+  } catch (err) {
+    console.error("Error in delete request:", err);
+    res.status(500).json({ error: "Something went wrong. Please try again later!" });
+  }
+});
+
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
