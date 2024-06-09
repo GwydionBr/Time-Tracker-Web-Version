@@ -4,6 +4,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { Fab } from "@mui/material";
 import { Zoom } from "@mui/material";
 import {deleteSession, deleteProject} from "./ServerComunication";
+import {addProject} from "./ServerComunication";
 
 const iconSize = 30;
 
@@ -34,13 +35,35 @@ function DeleteProjectButton(props){
 }
 
 function AddProjectButton(props){
+  const [isAdding, setIsAdding] = React.useState(false);
+
+  if(isAdding){
+    return(
+      <div className="addProjectForm">
+        <input type="text" placeholder="Project Name" id="projectName"/>
+        <input type="text" placeholder="Project Description" id="projectDescription"/>
+        <input type="number" placeholder="Project Salary" id="projectSalary"/>
+        <button onClick={() => {
+          addProject(
+            document.getElementById("projectName").value,
+            document.getElementById("projectDescription").value,
+            document.getElementById("projectSalary").value,
+            props.setProjects
+          )
+          setIsAdding(false);
+        }}>Add Project</button>
+        <button onClick={() => setIsAdding(false)}>Cancel</button>
+      </div>
+    )
+  } else {
+  // Return the add button
   return(
     <Zoom in={true}>
-      <Fab className="addFab" size="small" style={{ transform: 'scale(0.7)' }}>
+      <Fab className="addFab" size="small" style={{ transform: 'scale(0.7)' }} onClick={() => setIsAdding(true)}>
         <AddIcon sx={{ fontSize: iconSize }} />
       </Fab>
     </Zoom>
-  )
+  )}
 }
 
 function AddSessionButton(props){

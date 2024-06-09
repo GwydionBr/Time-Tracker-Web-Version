@@ -1,4 +1,3 @@
-import React from "react";
 
 const fetchProjects = async (setProjects, setLoading, setError) => {
   try {
@@ -39,6 +38,26 @@ const addSessionAndUpdate = async (name, description, salary, logTime, earnedMon
   }
 }
 
+const addProject = async (name, description, salary, setProjects) => {
+  try {
+    const response = await fetch("http://localhost:3000/addProject", {
+      method: "POST",
+      body: JSON.stringify({
+        projectName: name,
+        projectDescription: description,
+        projectSalary: salary,
+      }),
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+      },
+    });
+    const data = await response.json();
+    setProjects(data);
+  } catch (err) {
+    console.log(err.message);
+  }
+}
+
 const deleteSession = async (id, setProjects) => {
   try {
     const response = await fetch(`http://localhost:3000/deleteSession/${id}`, {
@@ -67,4 +86,4 @@ const deleteProject = async (id, setProjects) => {
   }
 };
 
-export {fetchProjects, addSessionAndUpdate, deleteSession, deleteProject};
+export {fetchProjects, addSessionAndUpdate, deleteSession, deleteProject, addProject};

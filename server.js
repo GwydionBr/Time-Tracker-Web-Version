@@ -94,6 +94,23 @@ app.post("/add", async (req, res) => {
   }
 });
 
+app.post("/addProject", async (req, res) => {
+  const { projectName, projectDescription, projectSalary } = req.body;
+  try {
+    await db.query(
+      "INSERT INTO projects (project_name, project_description, project_salary) VALUES ($1, $2, $3)", 
+      [projectName, projectDescription, projectSalary]
+    );
+    const sessions = await db.query("SELECT * FROM sessions ORDER BY id DESC");
+    const projects = await db.query("SELECT * FROM projects ORDER BY id ASC");
+    const items = formatProjectsWithSessions(sessions.rows, projects.rows);
+    res.status(200).json(items);
+  } catch (err) {
+    console.error("Error in addProject request:", err);
+    res.status(500).json({ error: "Something went wrong. Please try again later!" });
+  }
+});
+
 
 // Delete session from the database
 app.delete("/deleteSession/:id", async (req, res) => {
