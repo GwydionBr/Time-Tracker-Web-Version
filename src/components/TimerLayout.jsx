@@ -35,14 +35,18 @@ function TimerLayout(props){
     setNewProject(true);
     setOldProject(false);
     setTimerProject("");
+    setTimerDescription("");
   }
   function oldProjectSelected(){
     setNewProject(false);
     setOldProject(true);
+    setTimerDescription("");
+    setTimerProject("");
   }
   function selectOldProjectName(id){
     const selectedProject = props.projects.find((project) => project.projectId === id)
     setTimerProject(selectedProject.projectName);
+    setTimerDescription(selectedProject.projectDescription);
     setTimerSalary(selectedProject.projectSalary);
     setTimerDescription(selectedProject.projectDescription);
   }
@@ -51,9 +55,24 @@ function TimerLayout(props){
   // Additional Timer handling. Mainly for the Layout
 
   function startTimer(){
-    timerProject === "" ? setProjectName(defaultProject.projectName) : setProjectName(timerProject);
-    timerSalary === 0 ? setProjectSalary(defaultProject.projectSalary / 3600) : setProjectSalary(timerSalary / 3600);
-    setProjectDescription(timerDescription);
+    if (timerProject === "" && timerDescription === "") {
+      // If both project and description are empty, use default project values
+      setProjectName(defaultProject.projectName);
+      setProjectSalary(defaultProject.projectSalary / 3600);
+      setProjectDescription(defaultProject.projectDescription);
+    } else if (timerProject === "") {
+      // If only project is empty, use default project name and salary, but leave description empty
+      setProjectName(defaultProject.projectName);
+      setProjectSalary(defaultProject.projectSalary / 3600);
+      setProjectDescription("");
+    } else {
+      // If project is not empty, use the provided values
+      setProjectName(timerProject);
+      setProjectSalary(timerSalary / 3600);
+      setProjectDescription(timerDescription);
+    }
+  
+    // Reset timer values
     setTimerDescription("");
     setTimerProject("");
     setTimerSalary(0);
@@ -75,6 +94,7 @@ function TimerLayout(props){
         { props.isTimerActive || props.isTimerPaused ?
         <div>
           <h2>{projectName} / {projectSalary * 3600} $/h</h2>
+          <p>{projectDescription}</p>
           <p className="timeDisplay">{displayTime(props.time)}</p>
           <p>{(projectSalary * props.time).toFixed(2)} $</p>
         </div>
