@@ -34,9 +34,8 @@ function TimerLayout(props){
     setNewProject(false);
     setOldProject(true);
   }
-  function selectOldProjectName(event){
-    const receivedName = event.target.value;
-    const selectedProject = props.projects.find((project) => project.projectName === receivedName)
+  function selectOldProjectName(id){
+    const selectedProject = props.projects.find((project) => project.projectId === id)
     setTimerProject(selectedProject.projectName);
     setTimerSalary(selectedProject.projectSalary);
   }

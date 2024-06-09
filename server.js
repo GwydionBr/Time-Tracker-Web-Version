@@ -40,7 +40,7 @@ function formatProjectsWithSessions(sessionItems, projectItems) {
 // Get all the sessions from the database
 app.get("/read", async (req, res) => {
   try {
-    const sessions = await db.query("SELECT * FROM sessions ORDER BY id ASC;");
+    const sessions = await db.query("SELECT * FROM sessions ORDER BY id DESC;");
     const projects = await db.query("SELECT * FROM projects ORDER BY id ASC;");
     const items = formatProjectsWithSessions(sessions.rows, projects.rows);
     res.status(200).json(items);
@@ -81,7 +81,7 @@ app.post("/add", async (req, res) => {
       );
 
       // Retrieve all sessions and projects to return in response
-      const sessions = await db.query("SELECT * FROM sessions ORDER BY id ASC");
+      const sessions = await db.query("SELECT * FROM sessions ORDER BY id DESC");
       const projects = await db.query("SELECT * FROM projects ORDER BY id ASC");
       const items = formatProjectsWithSessions(sessions.rows, projects.rows);
       res.status(200).json(items);

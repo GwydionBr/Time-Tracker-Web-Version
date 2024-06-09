@@ -27,13 +27,12 @@ function NewProjectInput(props){
 }
 
 function SelectProjectInput(props){
-
   return(
     <form className="startForm">
       <label>Choose the Project: </label>
       <select name="chooseProject" id="chooseProject">
         {props.projects.map( project => (
-          <option value={project.projectId} onClick={props.selectProjectName}>{project.projectName}</option>
+          <option key={project.projectId} value={project.projectId} onClick={() => props.selectProjectName(project.projectId)}>{project.projectName}</option>
         ))}
       </select>
     </form>
