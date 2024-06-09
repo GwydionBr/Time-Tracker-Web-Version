@@ -8,12 +8,12 @@ function ProjectContainer(props){
 
   return(
           <div className="project">
-            <DeleteProjectButton id={project.projectId}/>
+            <DeleteProjectButton id={project.projectId} setProjects={props.setProjects}/>
             <h3>{projectName}</h3>
             <h4>{projectDescription}</h4>
             <h4>{projectSalary} $/h</h4>
             {project.sessions.map( session => (
-              <SessionContainer key={session.id} session={session}/>
+              <SessionContainer key={session.id} session={session} setProjects={props.setProjects}/>
             ))}
           </div> 
   )

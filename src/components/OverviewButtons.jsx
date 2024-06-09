@@ -15,6 +15,7 @@ function DeleteSessionButton(props){
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
+      props.setProjects(await response.json());
     } catch (err) {
       console.error(err.message);
     }
@@ -39,6 +40,7 @@ function DeleteProjectButton(props){
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
+      props.setProjects(await response.json());
     } catch (err) {
       console.error(err.message);
     }

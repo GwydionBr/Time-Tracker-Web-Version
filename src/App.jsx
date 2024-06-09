@@ -116,7 +116,7 @@ function App() {
         projects={projects}
         addSession={addSession}
       />
-      <ProjectOverview projects={projects} />
+      <ProjectOverview projects={projects} setProjects={setProjects}/>
     </>
   );
 }

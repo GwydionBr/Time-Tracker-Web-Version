@@ -9,7 +9,7 @@ function ProjectOverview(props){
     <div className="projectOverview">
       {props.projects.map( project => (
         <ProjectContainer 
-          key={project.projectId} project={project}
+          key={project.projectId} project={project} setProjects={props.setProjects}
         />
       ))}
     </div>
