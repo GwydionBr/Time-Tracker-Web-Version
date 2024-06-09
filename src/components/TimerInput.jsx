@@ -6,14 +6,14 @@ function StartSelector(props){
     <div>
       <p>Do you want to create a new Project or use an old one?</p>
       <form className="startForm container" >
-        <div className="radioContainer" onClick={props.new}>
+        <label className="radioContainer" onClick={props.new}>
           <input type="radio" id="newProject" name="projectSelector" value="new"></input>
-          <label>New Project</label>
-        </div>
-        <div className="radioContainer" onClick={props.old}>
+          New Project
+        </label>
+        <label className="radioContainer" onClick={props.old}>
           <input type="radio" id="oldProject" name="projectSelector" value="old" ></input>
-          <label>Exisiting Project</label>
-        </div>
+          Exisiting Project
+        </label>
       </form>
       </div>
   )

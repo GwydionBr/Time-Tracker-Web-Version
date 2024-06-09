@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from "react";
 import {displayTime} from "../assets/logicFunctions";
 import ProjectContainer from "./ProjectContainer";
+import { AddProjectButton } from "./OverviewButtons";
+import { Add } from "@mui/icons-material";
 
 function ProjectOverview(props){
 
@@ -12,6 +14,7 @@ function ProjectOverview(props){
           key={project.projectId} project={project} setProjects={props.setProjects}
         />
       ))}
+    <AddProjectButton />
     </div>
   )
 }

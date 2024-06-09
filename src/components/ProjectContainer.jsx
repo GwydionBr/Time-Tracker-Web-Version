@@ -1,6 +1,7 @@
 import React from "react";
 import SessionContainer from "./SessionContainer";
 import {DeleteProjectButton} from "./OverviewButtons";
+import { AddSessionButton } from "./OverviewButtons";
 
 function ProjectContainer(props){
   const project = props.project;
@@ -17,6 +18,7 @@ function ProjectContainer(props){
             {project.sessions.map( session => (
               <SessionContainer key={session.id} session={session} setProjects={props.setProjects}/>
             ))}
+            <AddSessionButton />
           </div> 
   )
 }

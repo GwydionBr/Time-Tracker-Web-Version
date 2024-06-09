@@ -35,6 +35,11 @@ header h1 {
   color: #FFFFFF !important;
 }
 
+.customFab:hover {
+  background-color: #ee0707 !important;
+  color: #000000 !important;
+}
+
 .startForm{
   margin: 20px; 
    
@@ -61,7 +66,8 @@ header h1 {
   width: 350px;
   background-color: white;
   gap: 5px;
-  padding: 30px 0px;
+  padding: 15px;
+  margin: 10px;
 }
 
 .projectContainer:hover{
@@ -88,9 +94,9 @@ header h1 {
 
 .session{
   background-color: aqua;
-  border-radius: 35%;
   width: 90%;
   text-align: center;
+  justify-content: space-between;
 }
 
 .sessionList{
@@ -110,4 +116,22 @@ header h1 {
 .deleteFab:hover{
   background-color: #FF0000 !important;
   color: #000000 !important;
+}
+
+.addFab{
+  background-color: #00FF00 !important;
+  color: #FFFFFF !important;
+}
+
+.addFab:hover{
+  background-color: #00FF00 !important;
+  color: #000000 !important;
+}
+
+.radioContainer:hover{
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+}
+
+.radioContainer{
+  padding: 3px;
 }
