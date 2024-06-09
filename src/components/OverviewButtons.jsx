@@ -1,102 +1,115 @@
-import React from "react";
+import React, { useState } from "react";
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
-import { Fab } from "@mui/material";
-import { Zoom } from "@mui/material";
-import {deleteSession, deleteProject} from "./ServerComunication";
-import {addProject, addSession} from "./ServerComunication";
+import { Fab, Zoom, TextField, Button } from "@mui/material";
+import { deleteSession, deleteProject, addProject, addSession } from "./ServerComunication";
+import PropTypes from 'prop-types';
 
 const iconSize = 30;
 
-function DeleteSessionButton(props){
-  const id = props.id;
-
-  // Return the delete button
-  return(
+function DeleteSessionButton({ id, setProjects }) {
+  return (
     <Zoom in={true}>
       <Fab className="deleteFab" size="small" style={{ transform: 'scale(0.7)' }}>
-        <DeleteIcon sx={{ fontSize: iconSize }} onClick={() => deleteSession(id, props.setProjects)}/>
+        <DeleteIcon sx={{ fontSize: iconSize }} onClick={() => deleteSession(id, setProjects)} />
       </Fab>
     </Zoom>
-  )
+  );
 }
 
-function DeleteProjectButton(props){
-  const id = props.id;
+DeleteSessionButton.propTypes = {
+  id: PropTypes.string.isRequired,
+  setProjects: PropTypes.func.isRequired,
+};
 
-  // Return the delete button
-  return(
+function DeleteProjectButton({ id, setProjects }) {
+  return (
     <Zoom in={true}>
       <Fab className="deleteFab" size="small" style={{ transform: 'scale(0.7)' }}>
-        <DeleteIcon sx={{ fontSize: iconSize }} onClick={() => deleteProject(id, props.setProjects)}/>
+        <DeleteIcon sx={{ fontSize: iconSize }} onClick={() => deleteProject(id, setProjects)} />
       </Fab>
     </Zoom>
-  )
+  );
 }
 
-function AddProjectButton(props){
-  const [isAdding, setIsAdding] = React.useState(false);
+DeleteProjectButton.propTypes = {
+  id: PropTypes.string.isRequired,
+  setProjects: PropTypes.func.isRequired,
+};
 
-  if(isAdding){
-    return(
+function AddProjectButton({ setProjects }) {
+  const [isAdding, setIsAdding] = useState(false);
+  const [projectName, setProjectName] = useState('');
+  const [projectDescription, setProjectDescription] = useState('');
+  const [projectSalary, setProjectSalary] = useState('');
+
+  const handleAddProject = () => {
+    addProject(projectName, projectDescription, projectSalary, setProjects);
+    setIsAdding(false);
+  };
+
+  if (isAdding) {
+    return (
       <div className="addProjectForm">
-        <input type="text" placeholder="Project Name" id="projectName"/>
-        <input type="text" placeholder="Project Description" id="projectDescription"/>
-        <input type="number" placeholder="Project Salary" id="projectSalary"/>
-        <button onClick={() => {
-          addProject(
-            document.getElementById("projectName").value,
-            document.getElementById("projectDescription").value,
-            document.getElementById("projectSalary").value,
-            props.setProjects
-          )
-          setIsAdding(false);
-        }}>Add Project</button>
-        <button onClick={() => setIsAdding(false)}>Cancel</button>
+        <TextField label="Project Name" value={projectName} onChange={(e) => setProjectName(e.target.value)} />
+        <TextField label="Project Description" value={projectDescription} onChange={(e) => setProjectDescription(e.target.value)} />
+        <TextField label="Project Salary" type="number" value={projectSalary} onChange={(e) => setProjectSalary(e.target.value)} />
+        <Button onClick={handleAddProject}>Add Project</Button>
+        <Button onClick={() => setIsAdding(false)}>Cancel</Button>
       </div>
-    )
+    );
   } else {
-  // Return the add button
-  return(
-    <Zoom in={true}>
-      <Fab className="addFab" size="small" style={{ transform: 'scale(0.7)' }} onClick={() => setIsAdding(true)}>
-        <AddIcon sx={{ fontSize: iconSize }} />
-      </Fab>
-    </Zoom>
-  )}
+    return (
+      <Zoom in={true}>
+        <Fab className="addFab" size="small" style={{ transform: 'scale(0.7)' }} onClick={() => setIsAdding(true)}>
+          <AddIcon sx={{ fontSize: iconSize }} />
+        </Fab>
+      </Zoom>
+    );
+  }
 }
 
-function AddSessionButton(props){
-  const [isAdding, setIsAdding] = React.useState(false);
-  if(isAdding){
-    return(
+AddProjectButton.propTypes = {
+  setProjects: PropTypes.func.isRequired,
+};
+
+function AddSessionButton({ projectId, setProjects }) {
+  const [isAdding, setIsAdding] = useState(false);
+  const [timeSpent, setTimeSpent] = useState('');
+  const [earnedMoney, setEarnedMoney] = useState('');
+  const [date, setDate] = useState('');
+  const [time, setTime] = useState('');
+
+  const handleAddSession = () => {
+    addSession(projectId, timeSpent, earnedMoney, date, time, setProjects);
+    setIsAdding(false);
+  };
+
+  if (isAdding) {
+    return (
       <div className="addSessionForm">
-        <input type="number" placeholder="Time spent" id="sessionTimeSpent"/>
-        <input type="number" placeholder="Earned Money" id="sessionEarnedMoney"/>
-        <input type="date" placeholder="Date" id="sessionDate"/>
-        <input type="time" placeholder="Time" id="sessionTime"/>
-        <button onClick={() => {
-          addSession(
-            props.projectId,
-            document.getElementById("sessionTimeSpent").value,
-            document.getElementById("sessionEarnedMoney").value,
-            document.getElementById("sessionDate").value,
-            document.getElementById("sessionTime").value,
-            props.setProjects
-          )
-          setIsAdding(false);
-        }}>Add Session</button>
-        <button onClick={() => setIsAdding(false)}>Cancel</button>
+        <TextField label="Time spent" type="number" value={timeSpent} onChange={(e) => setTimeSpent(e.target.value)} />
+        <TextField label="Earned Money" type="number" value={earnedMoney} onChange={(e) => setEarnedMoney(e.target.value)} />
+        <TextField label="Date" type="date" InputLabelProps={{ shrink: true }} value={date} onChange={(e) => setDate(e.target.value)} />
+        <TextField label="Time" type="time" InputLabelProps={{ shrink: true }} value={time} onChange={(e) => setTime(e.target.value)} />
+        <Button onClick={handleAddSession}>Add Session</Button>
+        <Button onClick={() => setIsAdding(false)}>Cancel</Button>
       </div>
-    )
+    );
   } else {
-  return(
-    <Zoom in={true}>
-      <Fab className="addFab" size="small" style={{ transform: 'scale(0.7)' }} onClick={() => setIsAdding(true)}>
-        <AddIcon sx={{ fontSize: iconSize }} />
-      </Fab>
-    </Zoom>
-  )}
+    return (
+      <Zoom in={true}>
+        <Fab className="addFab" size="small" style={{ transform: 'scale(0.7)' }} onClick={() => setIsAdding(true)}>
+          <AddIcon sx={{ fontSize: iconSize }} />
+        </Fab>
+      </Zoom>
+    );
+  }
 }
 
-export {DeleteSessionButton, DeleteProjectButton, AddProjectButton, AddSessionButton};
+AddSessionButton.propTypes = {
+  projectId: PropTypes.string.isRequired,
+  setProjects: PropTypes.func.isRequired,
+};
+
+export { DeleteSessionButton, DeleteProjectButton, AddProjectButton, AddSessionButton };
