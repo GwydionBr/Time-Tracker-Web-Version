@@ -18,7 +18,7 @@ function DeleteSessionButton({ id, setProjects }) {
 }
 
 DeleteSessionButton.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   setProjects: PropTypes.func.isRequired,
 };
 
@@ -33,7 +33,7 @@ function DeleteProjectButton({ id, setProjects }) {
 }
 
 DeleteProjectButton.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   setProjects: PropTypes.func.isRequired,
 };
 
@@ -108,7 +108,7 @@ function AddSessionButton({ projectId, setProjects }) {
 }
 
 AddSessionButton.propTypes = {
-  projectId: PropTypes.string.isRequired,
+  projectId: PropTypes.number.isRequired,
   setProjects: PropTypes.func.isRequired,
 };
 
