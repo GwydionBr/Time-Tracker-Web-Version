@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 // Importing the Buttons
 import ContinueTimerButton from "./Buttons/ContinueTimerButton";
 import StartTimerButton from "./Buttons/StartTimerButton";
@@ -11,7 +12,7 @@ import StartSelectorInput from "./Inputs/StartSelectorInput";
 // Importing the Logic Functions
 import { displayTime } from "../assets/logicFunctions";
 
-function TimerLayout({ projects, isTimerActive, isTimerPaused, time, start, stop, pause, continue: continueTimer, addSession }) {
+export default function TimerLayout({ projects, isTimerActive, isTimerPaused, time, start, stop, pause, continue: continueTimer, addSession }) {
   const defaultProject = projects[0];
 
   // State to manage new project details
@@ -136,4 +137,22 @@ const startTimer = () => {
   );
 }
 
-export default TimerLayout;
+TimerLayout.propTypes = {
+  projects: PropTypes.arrayOf(
+    PropTypes.shape({
+      projectId: PropTypes.string.isRequired,
+      projectName: PropTypes.string.isRequired,
+      projectSalary: PropTypes.number.isRequired,
+      projectDescription: PropTypes.string
+    })
+  ).isRequired,
+  isTimerActive: PropTypes.bool.isRequired,
+  isTimerPaused: PropTypes.bool.isRequired,
+  time: PropTypes.number.isRequired,
+  start: PropTypes.func.isRequired,
+  stop: PropTypes.func.isRequired,
+  pause: PropTypes.func.isRequired,
+  continue: PropTypes.func.isRequired,
+  addSession: PropTypes.func.isRequired
+};
+
