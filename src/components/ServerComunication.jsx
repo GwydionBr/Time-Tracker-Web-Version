@@ -1,7 +1,9 @@
+const BASE_URL = "http://localhost:3000";
+
 
 const fetchProjects = async (setProjects, setLoading, setError) => {
   try {
-    const response = await fetch("http://localhost:3000/read");
+    const response = await fetch(`${BASE_URL}/read`);
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
@@ -16,7 +18,7 @@ const fetchProjects = async (setProjects, setLoading, setError) => {
 
 const addSessionAndProject = async (name, description, salary, logTime, earnedMoney, currentDate, currentTime, setProjects) => {
   try {
-    const response = await fetch("http://localhost:3000/add", {
+    const response = await fetch(`${BASE_URL}/add`, {
       method: "POST",
       body: JSON.stringify({
         projectName: name,
@@ -40,7 +42,7 @@ const addSessionAndProject = async (name, description, salary, logTime, earnedMo
 
 const addSession = async (project_id, logTime, earnedMoney, currentDate, currentTime, setProjects) => {
   try {
-    const response = await fetch("http://localhost:3000/addSession", {
+    const response = await fetch(`${BASE_URL}/addSession`, {
       method: "POST",
       body: JSON.stringify({
         project_id: project_id,
@@ -62,7 +64,7 @@ const addSession = async (project_id, logTime, earnedMoney, currentDate, current
 
 const addProject = async (name, description, salary, setProjects) => {
   try {
-    const response = await fetch("http://localhost:3000/addProject", {
+    const response = await fetch(`${BASE_URL}/addProject`, {
       method: "POST",
       body: JSON.stringify({
         projectName: name,
@@ -82,7 +84,7 @@ const addProject = async (name, description, salary, setProjects) => {
 
 const deleteSession = async (id, setProjects) => {
   try {
-    const response = await fetch(`http://localhost:3000/deleteSession/${id}`, {
+    const response = await fetch(`${BASE_URL}/deleteSession/${id}`, {
       method: "DELETE",
     });
     if (!response.ok) {
@@ -96,7 +98,7 @@ const deleteSession = async (id, setProjects) => {
 
 const deleteProject = async (id, setProjects) => {
   try {
-    const response = await fetch(`http://localhost:3000/deleteProject/${id}`, {
+    const response = await fetch(`${BASE_URL}/deleteProject/${id}`, {
       method: "DELETE",
     });
     if (!response.ok) {

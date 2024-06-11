@@ -5,7 +5,7 @@ import ProjectOverview from "./components/ProjectOverview";
 import { fetchProjects, addSessionAndProject } from "./components/ServerComunication";
 import { roundToMinutes } from "./assets/logicFunctions";
 
-function App() {
+export default function App() {
   // Tracked variables for Timer
   const [isTimerActive, setTimer] = useState(false);
   const [isTimerPaused, setPause] = useState(false);
@@ -88,4 +88,3 @@ function App() {
   );
 }
 
-export default App;

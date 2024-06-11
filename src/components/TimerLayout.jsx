@@ -140,9 +140,9 @@ const startTimer = () => {
 TimerLayout.propTypes = {
   projects: PropTypes.arrayOf(
     PropTypes.shape({
-      projectId: PropTypes.string.isRequired,
+      projectId: PropTypes.number.isRequired,
       projectName: PropTypes.string.isRequired,
-      projectSalary: PropTypes.number.isRequired,
+      projectSalary: PropTypes.string.isRequired,
       projectDescription: PropTypes.string
     })
   ).isRequired,

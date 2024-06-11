@@ -2,7 +2,7 @@ import React from "react";
 import DeleteSessionButton from "./Buttons/DeleteSessionButton";
 import {displayShortTimeFormat} from "../assets/logicFunctions";
 
-function SessionContainer(props){
+export default function SessionContainer(props){
   const session = props.session;
   const {time_spent, money_earned, date, time} = session;
   return(
@@ -17,5 +17,3 @@ function SessionContainer(props){
         </div>
   )
 }
-
-export default SessionContainer;

@@ -7,17 +7,17 @@ import PropTypes from 'prop-types';
 const iconSize = 30;
 
 
-export default function DeleteProjectButton({ id, setProjects }) {
+export default function DeleteProjectButton({ project_id, setProjects }) {
   return (
     <Zoom in={true}>
       <Fab className="deleteFab" size="small" style={{ transform: 'scale(0.7)' }}>
-        <DeleteIcon sx={{ fontSize: iconSize }} onClick={() => deleteProject(id, setProjects)} />
+        <DeleteIcon sx={{ fontSize: iconSize }} onClick={() => deleteProject(project_idid, setProjects)} />
       </Fab>
     </Zoom>
   );
 }
 
 DeleteProjectButton.propTypes = {
-  id: PropTypes.number.isRequired,
+  project_id: PropTypes.number.isRequired,
   setProjects: PropTypes.func.isRequired,
 };

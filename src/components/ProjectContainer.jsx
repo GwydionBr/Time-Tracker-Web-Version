@@ -11,7 +11,7 @@ function ProjectContainer(props){
           <div className="projectContainer">
             <div className="container">
               <p className="projectName">{projectName}</p>
-              <DeleteProjectButton id={project.projectId} setProjects={props.setProjects}/>
+              <DeleteProjectButton className project_id={project.projectId} setProjects={props.setProjects}/>
             </div>
             <p className="projectDescrption">{projectDescription}</p>
             <p className="projectSalary">{projectSalary} $/h</p>
