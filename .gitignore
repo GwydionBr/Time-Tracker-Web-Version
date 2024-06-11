@@ -25,6 +25,7 @@ dist-ssr
 
 # personal 
 .env
+To-Dos.txt
 
 #npm 
 package-lock.json

@@ -3,6 +3,7 @@ import Header from "./components/Header";
 import TimerLayout from "./components/TimerLayout";
 import ProjectOverview from "./components/ProjectOverview";
 import { fetchProjects, addSessionAndProject } from "./components/ServerComunication";
+import { roundToMinutes } from "./assets/logicFunctions";
 
 function App() {
   // Tracked variables for Timer
@@ -23,7 +24,7 @@ function App() {
   // Add Session and Update projects
   const addSession = async (name, salary, description) => {
     // Calculate eraned money, project salary, and current date and time
-    const earnedMoney = (time * salary).toFixed(2);
+    const earnedMoney = (roundToMinutes(time) * (salary*60)).toFixed(2);
     const projectSalary = salary * 3600;
     const now = new Date();
     const date = `${now.getDate().toString().padStart(2, '0')}.${(now.getMonth() + 1).toString().padStart(2, '0')}.${now.getFullYear()}`;

@@ -22,6 +22,7 @@ DeleteSessionButton.propTypes = {
   setProjects: PropTypes.func.isRequired,
 };
 
+
 function DeleteProjectButton({ id, setProjects }) {
   return (
     <Zoom in={true}>
@@ -36,6 +37,8 @@ DeleteProjectButton.propTypes = {
   id: PropTypes.number.isRequired,
   setProjects: PropTypes.func.isRequired,
 };
+
+
 
 function AddProjectButton({ setProjects }) {
   const [isAdding, setIsAdding] = useState(false);
@@ -72,6 +75,8 @@ function AddProjectButton({ setProjects }) {
 AddProjectButton.propTypes = {
   setProjects: PropTypes.func.isRequired,
 };
+
+
 
 function AddSessionButton({ projectId, setProjects }) {
   const [isAdding, setIsAdding] = useState(false);

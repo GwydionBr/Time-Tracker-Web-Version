@@ -31,4 +31,9 @@
     return (newTime);
   }
 
-  export {displayTime, displayShortTimeFormat};
+
+  function roundToMinutes(sec){
+    return Math.ceil(sec / 60);
+  }
+
+  export {displayTime, displayShortTimeFormat, roundToMinutes};
