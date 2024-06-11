@@ -1,5 +1,5 @@
 import ProjectContainer from "./ProjectContainer";
-import { AddProjectButton } from "./OverviewButtons";
+import AddProjectButton  from "./Buttons/AddProjectButton";
 
 function ProjectOverview(props){
 

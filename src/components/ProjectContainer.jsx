@@ -1,7 +1,7 @@
 import React from "react";
 import SessionContainer from "./SessionContainer";
-import {DeleteProjectButton} from "./OverviewButtons";
-import { AddSessionButton } from "./OverviewButtons";
+import DeleteProjectButton from "./Buttons/DeleteProjectButton";
+import AddSessionButton  from "./Buttons/AddSessionButton";
 
 function ProjectContainer(props){
   const project = props.project;

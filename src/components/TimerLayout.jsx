@@ -1,5 +1,8 @@
 import React, {useState} from "react";
-import {StartButton, PauseButton, ContinueButton, StopButton } from "./TimerButtons";
+import ContinueTimerButton from "./Buttons/ContinueTimerButton";
+import StartTimerButton from "./Buttons/StartTimerButton";
+import PauseTimerButton from "./Buttons/PauseTimerButton";
+import StopTimerButton from "./Buttons/StopTimerButton";
 import {NewProjectInput, StartSelector, SelectProjectInput} from "./TimerInput";
 import {displayTime} from "../assets/logicFunctions";
 
@@ -119,10 +122,10 @@ function TimerLayout(props){
 
         {/* Timer Buttons */}
         <div className="container">
-          {!props.isTimerActive && !props.isTimerPaused && <StartButton startTimer={startTimer}/>}
-          {props.isTimerActive &&  !props.isTimerPaused && <PauseButton pause={props.pause}/>}
-          {!props.isTimerActive && props.isTimerPaused && <ContinueButton continue={props.continue}/>}
-          {props.isTimerActive && <StopButton stopTimer={stopTimer}/>}
+          {!props.isTimerActive && !props.isTimerPaused && <StartTimerButton startTimer={startTimer}/>}
+          {props.isTimerActive &&  !props.isTimerPaused && <PauseTimerButton pause={props.pause}/>}
+          {!props.isTimerActive && props.isTimerPaused && <ContinueTimerButton continue={props.continue}/>}
+          {props.isTimerActive && <StopTimerButton stopTimer={stopTimer}/>}
         </div> 
 
       </div>

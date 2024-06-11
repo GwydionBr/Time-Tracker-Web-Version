@@ -1,5 +1,5 @@
 import React from "react";
-import {DeleteSessionButton} from "./OverviewButtons";
+import DeleteSessionButton from "./Buttons/DeleteSessionButton";
 import {displayShortTimeFormat} from "../assets/logicFunctions";
 
 function SessionContainer(props){
