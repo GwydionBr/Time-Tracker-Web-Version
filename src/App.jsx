@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Header from "./components/Header";
+import Header from "./components/Header_and_Footer/Header";
 import TimerLayout from "./components/TimerLayout";
 import ProjectOverview from "./components/ProjectOverview";
 import { fetchProjects, addSessionAndProject } from "./components/ServerComunication";

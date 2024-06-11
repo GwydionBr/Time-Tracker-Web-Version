@@ -1,9 +1,14 @@
 import React, {useState} from "react";
+// Importing the Buttons 
 import ContinueTimerButton from "./Buttons/ContinueTimerButton";
 import StartTimerButton from "./Buttons/StartTimerButton";
 import PauseTimerButton from "./Buttons/PauseTimerButton";
 import StopTimerButton from "./Buttons/StopTimerButton";
-import {NewProjectInput, StartSelector, SelectProjectInput} from "./TimerInput";
+// Importing the Inputs
+import SelectProjectInput from "./Inputs/SelectProjectInput";
+import NewProjectInput from "./Inputs/NewProjectInput";
+import StartSelectorInput from "./Inputs/StartSelectorInput";
+// Importing the Logic Functions
 import {displayTime} from "../assets/logicFunctions";
 
 function TimerLayout(props){
@@ -108,7 +113,7 @@ function TimerLayout(props){
         {/* Input Interface */}
 
         { !props.isTimerActive && !props.isTimerPaused && 
-          <StartSelector new={newProjectSelected} old={oldProjectSelected}/>
+          <StartSelectorInput new={newProjectSelected} old={oldProjectSelected}/>
         }
         { !props.isTimerActive && !props.isTimerPaused && isProjectNew &&
           <NewProjectInput 
