@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-// Importing the Buttons 
+import React, { useState } from "react";
+// Importing the Buttons
 import ContinueTimerButton from "./Buttons/ContinueTimerButton";
 import StartTimerButton from "./Buttons/StartTimerButton";
 import PauseTimerButton from "./Buttons/PauseTimerButton";
@@ -9,134 +9,131 @@ import SelectProjectInput from "./Inputs/SelectProjectInput";
 import NewProjectInput from "./Inputs/NewProjectInput";
 import StartSelectorInput from "./Inputs/StartSelectorInput";
 // Importing the Logic Functions
-import {displayTime} from "../assets/logicFunctions";
+import { displayTime } from "../assets/logicFunctions";
 
-function TimerLayout(props){
-  const defaultProject = props.projects[0];
+function TimerLayout({ projects, isTimerActive, isTimerPaused, time, start, stop, pause, continue: continueTimer, addSession }) {
+  const defaultProject = projects[0];
 
-  const [timerProject, setTimerProject] = useState("");
-  const [timerSalary, setTimerSalary] = useState(0);
-  const [timerDescription, setTimerDescription] = useState("");
-  const [projectDescription, setProjectDescription] = useState("");
-  const [projectName, setProjectName] = useState();
-  const [projectSalary, setProjectSalary] = useState(0);
-  const [isProjectNew, setNewProject] = useState(false);
-  const [isProjectOld, setOldProject] = useState(false);
+  // State to manage new project details
+  const [newProjectDetails, setNewProjectDetails] = useState({ name: "", salary: 0, description: "" });
+  // State to manage selected project details
+  const [selectedProjectDetails, setSelectedProjectDetails] = useState({ name: "", salary: 0, description: "" });
+  // State to toggle between new and old project input forms
+  const [isNewProject, setIsNewProject] = useState(false);
+  const [isOldProject, setIsOldProject] = useState(false);
 
+  // Generalized handler for input changes
+  const handleInputChange = (event, field) => {
+    setNewProjectDetails(prevDetails => ({
+      ...prevDetails,
+      [field]: event.target.value
+    }));
+  };
 
-  // Handle Input Changes
+  // Handlers for specific input fields
+  const handleProjectChange = event => handleInputChange(event, 'name');
+  const handleSalaryChange = event => handleInputChange(event, 'salary');
+  const handleDescriptionChange = event => handleInputChange(event, 'description');
 
-  function handleProjectChange(event){
-    const newValue = event.target.value;
-    setTimerProject(newValue);
-  }
-  function handleSalaryChange(event){
-    const newValue = event.target.value;
-    setTimerSalary(newValue)
-  }
-  function handleDescriptionChange(event){
-    const newValue = event.target.value;
-    setTimerDescription(newValue);
-  }
+  // Function to select new project form
+  const newProjectSelected = () => {
+    setIsNewProject(true);
+    setIsOldProject(false);
+    setNewProjectDetails({ name: "", salary: 0, description: "" });
+  };
 
-  function newProjectSelected(){
-    setNewProject(true);
-    setOldProject(false);
-    setTimerProject("");
-    setTimerDescription("");
-  }
-  function oldProjectSelected(){
-    setNewProject(false);
-    setOldProject(true);
-    setTimerDescription("");
-    setTimerProject("");
-  }
-  function selectOldProjectName(id){
-    const selectedProject = props.projects.find((project) => project.projectId === id)
-    setTimerProject(selectedProject.projectName);
-    setTimerDescription(selectedProject.projectDescription);
-    setTimerSalary(selectedProject.projectSalary);
-    setTimerDescription(selectedProject.projectDescription);
-  }
+  // Function to select old project form
+  const oldProjectSelected = () => {
+    setIsNewProject(false);
+    setIsOldProject(true);
+    setNewProjectDetails({ name: "", salary: 0, description: "" });
+  };
 
-
-  // Additional Timer handling. Mainly for the Layout
-
-  function startTimer(){
-    if (timerProject === "" && timerDescription === "") {
-      // If both project and description are empty, use default project values
-      setProjectName(defaultProject.projectName);
-      setProjectSalary(defaultProject.projectSalary / 3600);
-      setProjectDescription(defaultProject.projectDescription);
-    } else if (timerProject === "") {
-      // If only project is empty, use default project name and salary, but leave description empty
-      setProjectName(defaultProject.projectName);
-      setProjectSalary(defaultProject.projectSalary / 3600);
-      setProjectDescription("");
-    } else {
-      // If project is not empty, use the provided values
-      setProjectName(timerProject);
-      setProjectSalary(timerSalary / 3600);
-      setProjectDescription(timerDescription);
+  // Function to handle selection of an existing project
+  const selectOldProjectName = id => {
+    const selectedProject = projects.find(project => project.projectId === id);
+    console.log(selectedProject);
+    console.log(id)
+    if (selectedProject) {
+      setSelectedProjectDetails({
+        name: selectedProject.projectName,
+        salary: selectedProject.projectSalary,
+        description: selectedProject.projectDescription
+      });
     }
-  
-    // Reset timer values
-    setTimerDescription("");
-    setTimerProject("");
-    setTimerSalary(0);
-    props.start();
-  }
-  function stopTimer(){
-    props.addSession(projectName, projectSalary, projectDescription);
-    setProjectName("");
-    props.stop();
+  };
+
+  // Function to start the timer
+const startTimer = () => {
+  let projectDetails;
+  if (isNewProject) {
+    projectDetails = {
+      name: newProjectDetails.name || defaultProject.projectName,
+      salary: newProjectDetails.salary || defaultProject.projectSalary,
+      description: newProjectDetails.description || defaultProject.projectDescription
+    };
+  } else if (isOldProject) {
+    projectDetails = selectedProjectDetails;
   }
 
+  // Set the selected project details with per second salary rate
+  setSelectedProjectDetails({
+    ...projectDetails,
+    salary: projectDetails.salary / 3600 // Convert to per second rate
+  });
+  // Reset new project details
+  setNewProjectDetails({ name: "", salary: 0, description: "" });
+  start();
+};
 
+  // Function to stop the timer
+  const stopTimer = () => {
+    addSession(selectedProjectDetails.name, selectedProjectDetails.salary, selectedProjectDetails.description);
+    setSelectedProjectDetails({ name: "", salary: 0, description: "" });
+    stop();
+  };
 
   return (
     <div className="container">
       <div className="timerLayout">
+        {/* Display active timer information if timer is active or paused */}
+        {isTimerActive || isTimerPaused ? (
+          <div>
+            <h2>{selectedProjectDetails.name} / ${(selectedProjectDetails.salary * 3600).toFixed(2)} $/h</h2>
+            <p>{selectedProjectDetails.description}</p>
+            <p className="timeDisplay">{displayTime(time)}</p>
+            <p>{(selectedProjectDetails.salary * time).toFixed(2)} $</p>
+          </div>
+        ) : null}
 
-        {/* Active Timer Interface */}
-        { props.isTimerActive || props.isTimerPaused ?
-        <div>
-          <h2>{projectName} / {projectSalary * 3600} $/h</h2>
-          <p>{projectDescription}</p>
-          <p className="timeDisplay">{displayTime(props.time)}</p>
-          <p>{(projectSalary * props.time).toFixed(2)} $</p>
-        </div>
-        :
-        null}
+        {/* Display project selection inputs if timer is not active or paused */}
+        {!isTimerActive && !isTimerPaused && (
+          <>
+            <StartSelectorInput new={newProjectSelected} old={oldProjectSelected} />
+            {isNewProject && (
+              <NewProjectInput
+                timerProject={newProjectDetails.name}
+                timerSalary={newProjectDetails.salary}
+                timerDescription={newProjectDetails.description}
+                handleProjectChange={handleProjectChange}
+                handleSalaryChange={handleSalaryChange}
+                handleDescriptionChange={handleDescriptionChange}
+              />
+            )}
+            {isOldProject && <SelectProjectInput projects={projects} selectProjectName={selectOldProjectName} />}
+          </>
+        )}
 
-
-        {/* Input Interface */}
-
-        { !props.isTimerActive && !props.isTimerPaused && 
-          <StartSelectorInput new={newProjectSelected} old={oldProjectSelected}/>
-        }
-        { !props.isTimerActive && !props.isTimerPaused && isProjectNew &&
-          <NewProjectInput 
-            timerProject={timerProject} timerSalary={timerSalary} timerDescription={timerDescription}
-            handleProjectChange={handleProjectChange} handleSalaryChange={handleSalaryChange} handleDescriptionChange={handleDescriptionChange}
-          />}
-        { !props.isTimerActive && !props.isTimerPaused && isProjectOld &&
-          <SelectProjectInput projects={props.projects} selectProjectName={selectOldProjectName}
-          />}
-
-
-        {/* Timer Buttons */}
+        {/* Display appropriate buttons based on timer state */}
         <div className="container">
-          {!props.isTimerActive && !props.isTimerPaused && <StartTimerButton startTimer={startTimer}/>}
-          {props.isTimerActive &&  !props.isTimerPaused && <PauseTimerButton pause={props.pause}/>}
-          {!props.isTimerActive && props.isTimerPaused && <ContinueTimerButton continue={props.continue}/>}
-          {props.isTimerActive && <StopTimerButton stopTimer={stopTimer}/>}
-        </div> 
-
+          {!isTimerActive && !isTimerPaused && <StartTimerButton startTimer={startTimer} />}
+          {isTimerActive && !isTimerPaused && <PauseTimerButton pause={pause} />}
+          {!isTimerActive && isTimerPaused && <ContinueTimerButton continue={continueTimer} />}
+          {isTimerActive && <StopTimerButton stopTimer={stopTimer} />}
+        </div>
       </div>
     </div>
-  )
+  );
 }
-
 
 export default TimerLayout;
