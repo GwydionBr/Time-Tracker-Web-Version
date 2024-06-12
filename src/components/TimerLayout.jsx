@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 // Importing the Buttons
-import ContinueTimerButton from "./Buttons/ContinueTimerButton";
 import StartTimerButton from "./Buttons/StartTimerButton";
 import PauseTimerButton from "./Buttons/PauseTimerButton";
 import StopTimerButton from "./Buttons/StopTimerButton";
@@ -13,7 +12,12 @@ import StartSelectorInput from "./Inputs/StartSelectorInput";
 import { displayTime } from "../assets/logicFunctions";
 
 export default function TimerLayout({ projects, isTimerActive, isTimerPaused, time, start, stop, pause, continue: continueTimer, addSession }) {
-  const defaultProject = projects[0];
+  const {
+    projectName: defaultProjectName,
+    projectSalary: defaultProjectSalary,
+    projectDescription: defaultProjectDescription
+  } = projects[0];
+
 
   // State to manage new project details
   const [newProjectDetails, setNewProjectDetails] = useState({ name: "", salary: 0, description: "" });
@@ -47,14 +51,12 @@ export default function TimerLayout({ projects, isTimerActive, isTimerPaused, ti
   const oldProjectSelected = () => {
     setIsNewProject(false);
     setIsOldProject(true);
-    setNewProjectDetails({ name: "", salary: 0, description: "" });
+    setSelectedProjectDetails({ name: defaultProjectName, salary: defaultProjectSalary, description: defaultProjectDescription });
   };
 
   // Function to handle selection of an existing project
   const selectOldProjectName = id => {
     const selectedProject = projects.find(project => project.projectId === id);
-    console.log(selectedProject);
-    console.log(id)
     if (selectedProject) {
       setSelectedProjectDetails({
         name: selectedProject.projectName,
@@ -69,9 +71,9 @@ const startTimer = () => {
   let projectDetails;
   if (isNewProject) {
     projectDetails = {
-      name: newProjectDetails.name || defaultProject.projectName,
-      salary: newProjectDetails.salary || defaultProject.projectSalary,
-      description: newProjectDetails.description || defaultProject.projectDescription
+      name: newProjectDetails.name || defaultProjectName,
+      salary: newProjectDetails.salary || defaultProjectSalary,
+      description: newProjectDetails.description || defaultProjectDescription
     };
   } else if (isOldProject) {
     projectDetails = selectedProjectDetails;
@@ -127,10 +129,10 @@ const startTimer = () => {
 
         {/* Display appropriate buttons based on timer state */}
         <div className="container">
-          {!isTimerActive && !isTimerPaused && <StartTimerButton startTimer={startTimer} />}
-          {isTimerActive && !isTimerPaused && <PauseTimerButton pause={pause} />}
-          {!isTimerActive && isTimerPaused && <ContinueTimerButton continue={continueTimer} />}
-          {isTimerActive && <StopTimerButton stopTimer={stopTimer} />}
+          {!isTimerActive && !isTimerPaused && <StartTimerButton timerFunction={startTimer} />}
+          {isTimerActive && !isTimerPaused && <PauseTimerButton timerFunction={pause} />}
+          {!isTimerActive && isTimerPaused && <StartTimerButton timerFunction={continueTimer} />}
+          {isTimerActive && <StopTimerButton timerFunction={stopTimer} />}
         </div>
       </div>
     </div>
