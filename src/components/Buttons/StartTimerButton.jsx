@@ -6,7 +6,7 @@ import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 export default function StartButton(props){
   return(
     <Zoom in={true}>
-      <Fab className="customFab">
+      <Fab className="timerFab">
         <PlayCircleIcon fontSize="large" onClick={props.startTimer}/>
       </Fab>
     </Zoom>

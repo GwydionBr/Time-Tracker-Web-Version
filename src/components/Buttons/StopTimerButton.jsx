@@ -5,7 +5,7 @@ import StopCircleIcon from '@mui/icons-material/StopCircle';
 export default function StopButton(props){
   return(
     <Zoom in={true}>
-      <Fab className="customFab">
+      <Fab className="timerFab">
         <StopCircleIcon fontSize="large" onClick={props.stopTimer}/>
       </Fab>
     </Zoom>

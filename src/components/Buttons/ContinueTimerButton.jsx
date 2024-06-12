@@ -6,7 +6,7 @@ import PlayCircleIcon from '@mui/icons-material/PlayCircleOutline';
 export default function ContinueButton(props){
   return(
     <Zoom in={true}>
-      <Fab className="customFab">
+      <Fab className="timerFab">
         <PlayCircleIcon fontSize="large" onClick={props.continue}/>
       </Fab>
     </Zoom>

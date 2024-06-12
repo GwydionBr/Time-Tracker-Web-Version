@@ -18,12 +18,12 @@
   color: #000000 !important;
 }
 
-.customFab {
-  background-color: #003285 !important;
+.timerFab {
+  background-color: #365E32 !important;
   color: #FFFFFF !important;
 }
 
-.customFab:hover {
-  background-color: #ee0707 !important;
+.timerFab:hover {
+  background-color: #81A263 !important;
   color: #000000 !important;
 }

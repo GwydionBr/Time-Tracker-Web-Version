@@ -5,7 +5,7 @@ import PauseCircleIcon from '@mui/icons-material/PauseCircle';
 export default function PauseButton(props){
   return(
     <Zoom in={true}>
-      <Fab className="customFab">
+      <Fab className="timerFab">
         <PauseCircleIcon fontSize="large" onClick={props.pause}/>
       </Fab>
     </Zoom>
