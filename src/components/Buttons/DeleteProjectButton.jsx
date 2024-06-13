@@ -11,7 +11,7 @@ export default function DeleteProjectButton({ project_id, setProjects }) {
   return (
     <Zoom in={true}>
       <Fab className="deleteFab" size="small" style={{ transform: 'scale(0.7)' }}>
-        <DeleteIcon sx={{ fontSize: iconSize }} onClick={() => deleteProject(project_idid, setProjects)} />
+        <DeleteIcon sx={{ fontSize: iconSize }} onClick={() => deleteProject(project_id, setProjects)} />
       </Fab>
     </Zoom>
   );
