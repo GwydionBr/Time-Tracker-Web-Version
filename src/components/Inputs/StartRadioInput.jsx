@@ -19,7 +19,7 @@ export default function StartRadioInput({isProjectNew, setIsProjectNew, handlePr
         onChange={handleChange}
       >
       <FormControlLabel  value="new" control={<Radio />} label="New Project"  />
-      <FormControlLabel  value="old" control={<Radio />} label="Old Project"  />
+      <FormControlLabel  value="old" control={<Radio />} label="Saved Project"  />
       </RadioGroup>
     </FormControl>
   )
