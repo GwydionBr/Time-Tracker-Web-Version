@@ -11,14 +11,14 @@ import SelectProjectInput from "./Inputs/SelectProjectInput";
 // Importing the Logic Functions
 import { displayTime } from "../assets/logicFunctions";
 
-export default function TimerLayout({ projects, isTimerActive, isTimerPaused, time, start, stop, pause, continue: continueTimer, addSession }) {
+export default function TimerLayout({ projects, isTimerActive, isTimerPaused, time, start, stop, pause, continue: continueTimer, addSession, oldProjectsExisting }) {
 
   // State to manage new project details
   const [newProjectDetails, setNewProjectDetails] = useState({ name: "", salary: 0, description: "" });
   // State to manage selected project details
   const [selectedProjectDetails, setSelectedProjectDetails] = useState({ name: "", salary: 0, description: "" });
   // State to toggle between new and old project input forms
-  const [isProjectNew, setIsProjectNew] = useState(projects.length != 0 ? false : true);
+  const [isProjectNew, setIsProjectNew] = useState(!oldProjectsExisting);
 
   // Generalized handler for input changes
   const handleInputChange = (event, field) => {
@@ -108,8 +108,8 @@ const startTimer = () => {
         {/* Display project selection inputs if timer is not active or paused */}
         {!isTimerActive && !isTimerPaused && (
           <>
-            {projects.length != 0 && <StartRadioInput isProjectNew={isProjectNew} setIsProjectNew={setIsProjectNew} handleProjectTypeChange={handleProjectTypeChange}/>}
-            {isProjectNew && (
+            {oldProjectsExisting && <StartRadioInput isProjectNew={isProjectNew} setIsProjectNew={setIsProjectNew} handleProjectTypeChange={handleProjectTypeChange}/>}
+            {isProjectNew || !oldProjectsExisting ? (
               <NewProjectInput
                 timerProject={newProjectDetails.name}
                 timerSalary={newProjectDetails.salary}
@@ -118,8 +118,9 @@ const startTimer = () => {
                 handleSalaryChange={handleSalaryChange}
                 handleDescriptionChange={handleDescriptionChange}
               />
-            )}
-            {!isProjectNew && <SelectProjectInput projects={projects} selectProjectName={selectOldProjectName} />}
+            )
+            :
+            <SelectProjectInput projects={projects} selectProjectName={selectOldProjectName} />}
           </>
         )}
 

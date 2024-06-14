@@ -16,7 +16,7 @@ const fetchProjects = async (setProjects, setLoading, setError) => {
   }
 };
 
-const addSessionAndProject = async (name, description, salary, logTime, earnedMoney, currentDate, currentTime, setProjects) => {
+const addSessionAndProject = async (name, description, salary, logTime, earnedMoney, currentDate, currentTime, handleProjectChange) => {
   try {
     const response = await fetch(`${BASE_URL}/add`, {
       method: "POST",
@@ -34,7 +34,7 @@ const addSessionAndProject = async (name, description, salary, logTime, earnedMo
       },
     });
     const data = await response.json();
-    setProjects(data);
+    handleProjectChange(data);
   } catch (err) {
     console.log(err.message);
   }

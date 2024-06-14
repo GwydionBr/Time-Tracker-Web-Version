@@ -6,10 +6,6 @@ import { fetchProjects, addSessionAndProject } from "./components/ServerComunica
 import { roundToMinutes } from "./assets/logicFunctions";
 
 export default function App() {
-  // Tracked variables for Timer
-  const [isTimerActive, setTimer] = useState(false);
-  const [isTimerPaused, setPause] = useState(false);
-  const [time, setTime] = useState(0); // Safe time in Seconds
 
   // Tracked variables for Server Communication and Projects
   const [projects, setProjects] = useState([]);
@@ -21,6 +17,14 @@ export default function App() {
     fetchProjects(setProjects, setLoading, setError);
   }, []);
 
+  //Check if other Projects are existing
+  const [oldProjectsExisting, setOldProjectsExisting] = useState(projects.length != 0 ? true : false);
+  function handleProjectChanges(newProjects) {
+    setOldProjectsExisting(newProjects.length != 0);
+    console.log(oldProjectsExisting)
+    setProjects(newProjects);
+  }
+
   // Add Session and Update projects
   const addSession = async (name, salary, description) => {
     // Calculate eraned money, project salary, and current date and time
@@ -30,9 +34,15 @@ export default function App() {
     const date = `${now.getDate().toString().padStart(2, '0')}.${(now.getMonth() + 1).toString().padStart(2, '0')}.${now.getFullYear()}`;
     const currentTime = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
     // Add the session to the database
-    addSessionAndProject(name, description, projectSalary, time, earnedMoney, date, currentTime, setProjects);
+    addSessionAndProject(name, description, projectSalary, time, earnedMoney, date, currentTime, handleProjectChanges);
 
   };
+
+
+  // Tracked variables for Timer
+  const [isTimerActive, setTimer] = useState(false);
+  const [isTimerPaused, setPause] = useState(false);
+  const [time, setTime] = useState(0); // Safe time in Seconds
 
   // Start Timer Logic and Handling
   useEffect(() => {
@@ -82,8 +92,9 @@ export default function App() {
         isTimerPaused={isTimerPaused}
         projects={projects}
         addSession={addSession}
+        oldProjectsExisting={oldProjectsExisting}
       />
-      <ProjectOverview projects={projects} setProjects={setProjects}/>
+      <ProjectOverview projects={projects} setProjects={handleProjectChanges}/>
     </>
   );
 }
