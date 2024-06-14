@@ -1,7 +1,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { FormControl, FormLabel, RadioGroup, FormControlLabel, Radio } from '@mui/material';
-import { Start } from '@mui/icons-material';
 
 export default function StartRadioInput({isProjectNew, setIsProjectNew, handleProjectTypeChange}){
   const handleChange = (event) => {
