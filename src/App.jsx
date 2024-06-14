@@ -18,12 +18,13 @@ export default function App() {
   }, []);
 
   //Check if other Projects are existing
-  const [oldProjectsExisting, setOldProjectsExisting] = useState(projects.length != 0 ? true : false);
-  function handleProjectChanges(newProjects) {
-    setOldProjectsExisting(newProjects.length != 0);
-    console.log(oldProjectsExisting)
-    setProjects(newProjects);
-  }
+  const [oldProjectsExisting, setOldProjectsExisting] = useState(false);
+
+  // Check if Projects are existing
+  useEffect(() => {
+    setOldProjectsExisting(projects.length !== 0);
+  }, [projects]);
+
 
   // Add Session and Update projects
   const addSession = async (name, salary, description) => {
@@ -34,7 +35,7 @@ export default function App() {
     const date = `${now.getDate().toString().padStart(2, '0')}.${(now.getMonth() + 1).toString().padStart(2, '0')}.${now.getFullYear()}`;
     const currentTime = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
     // Add the session to the database
-    addSessionAndProject(name, description, projectSalary, time, earnedMoney, date, currentTime, handleProjectChanges);
+    addSessionAndProject(name, description, projectSalary, time, earnedMoney, date, currentTime, setProjects);
 
   };
 
@@ -94,7 +95,7 @@ export default function App() {
         addSession={addSession}
         oldProjectsExisting={oldProjectsExisting}
       />
-      <ProjectOverview projects={projects} setProjects={handleProjectChanges}/>
+      <ProjectOverview projects={projects} setProjects={setProjects}/>
     </>
   );
 }
