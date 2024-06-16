@@ -3,7 +3,7 @@ import Header from "./components/Header_and_Footer/Header";
 import TimerLayout from "./components/TimerLayout";
 import ProjectOverview from "./components/ProjectOverview";
 import { fetchProjects, addSessionAndProject } from "./components/ServerComunication";
-import { roundToMinutes } from "./assets/logicFunctions";
+import { roundToMinutes, displayTime } from "./assets/logicFunctions";
 
 export default function App() {
 
@@ -50,13 +50,19 @@ export default function App() {
     let timer = null;
     if (isTimerActive) {
       timer = setInterval(() => {
-        setTime((prevTime) => prevTime + 1);
+        setTime((prevTime) => {
+          const newTime = prevTime + 1;
+          document.title = displayTime(newTime);
+          return newTime;
+        });
       }, 1000);
     } else {
       clearInterval(timer);
+      document.title = "Time Tracker";
     }
+
     return () => clearInterval(timer);
-  }, [isTimerActive]);
+  }, [isTimerActive, time]);
 
   const startTimer = () => setTimer(true);
   const pauseTimer = () => {

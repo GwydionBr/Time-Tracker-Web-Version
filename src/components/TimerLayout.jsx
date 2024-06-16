@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 // Importing the Buttons
 import StartTimerButton from "./Buttons/StartTimerButton";
@@ -35,7 +35,7 @@ export default function TimerLayout({ projects, isTimerActive, isTimerPaused, ti
 
 
   // Function to handle selection of the Project Input Type
-  const handleProjectTypeChange = () => {
+  useEffect(() => {
     if (isProjectNew) {
       setNewProjectDetails({ name: "", salary: 0, description: "" });
     } else {
@@ -44,9 +44,12 @@ export default function TimerLayout({ projects, isTimerActive, isTimerPaused, ti
         projectSalary: defaultProjectSalary,
         projectDescription: defaultProjectDescription
       } = projects[0];
-      setSelectedProjectDetails({ name: defaultProjectName, salary: defaultProjectSalary, description: defaultProjectDescription });
+      setSelectedProjectDetails({ 
+        name: defaultProjectName, 
+        salary: defaultProjectSalary, 
+        description: defaultProjectDescription });
     }
-  }
+  }, [isProjectNew]);
 
   // Function to handle selection of an existing project
   const selectOldProjectName = id => {
@@ -108,7 +111,7 @@ const startTimer = () => {
         {/* Display project selection inputs if timer is not active or paused */}
         {!isTimerActive && !isTimerPaused && (
           <>
-            {oldProjectsExisting && <StartRadioInput isProjectNew={isProjectNew} setIsProjectNew={setIsProjectNew} handleProjectTypeChange={handleProjectTypeChange}/>}
+            {oldProjectsExisting && <StartRadioInput isProjectNew={isProjectNew} setIsProjectNew={setIsProjectNew} />}
             {isProjectNew || !oldProjectsExisting ? (
               <NewProjectInput
                 timerProject={newProjectDetails.name}

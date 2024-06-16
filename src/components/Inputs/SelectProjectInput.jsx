@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from 'prop-types';
 import { Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
 export default function SelectProjectInput({ projects, selectProjectName }) {
-  const [selectedProject, setSelectedProject] = useState("");
+  // Initialize selectedProject with the projectId of the first project, if projects array is not empty
+  const [selectedProject, setSelectedProject] = useState(projects.length > 0 ? projects[0].projectId : "");
 
   const handleChange = (event) => {
     const projectId = event.target.value;

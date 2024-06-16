@@ -2,10 +2,9 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { FormControl, FormLabel, RadioGroup, FormControlLabel, Radio } from '@mui/material';
 
-export default function StartRadioInput({isProjectNew, setIsProjectNew, handleProjectTypeChange}){
+export default function StartRadioInput({isProjectNew, setIsProjectNew}){
   const handleChange = (event) => {
     setIsProjectNew(event.target.value === 'new');
-    handleProjectTypeChange();
   };
   
   return(
@@ -28,5 +27,4 @@ export default function StartRadioInput({isProjectNew, setIsProjectNew, handlePr
 StartRadioInput.propTypes = {
   isProjectNew: PropTypes.bool.isRequired,
   setIsProjectNew: PropTypes.func.isRequired,
-  handleProjectTypeChange: PropTypes.func.isRequired
 }
