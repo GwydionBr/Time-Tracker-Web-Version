@@ -1,7 +1,7 @@
 import React from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Fab, Zoom } from '@mui/material';
-import { deleteProject } from '../ServerComunication';
+import { deleteProject } from '../../assets/ServerComunication';
 import PropTypes from 'prop-types';
 
 const iconSize = 30;

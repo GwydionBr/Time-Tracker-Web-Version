@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Header from "./components/Header_and_Footer/Header";
 import TimerLayout from "./components/TimerLayout";
 import ProjectOverview from "./components/ProjectOverview";
-import { fetchProjects, addSessionAndProject } from "./components/ServerComunication";
+import { fetchProjects, addSessionAndProject } from "./assets/ServerComunication";
 import { roundToMinutes, displayTime } from "./assets/logicFunctions";
 
 export default function App() {
@@ -28,7 +28,7 @@ export default function App() {
 
   // Add Session and Update projects
   const addSession = async (name, salary, description) => {
-    // Calculate eraned money, project salary, and current date and time
+    // Calculate earned money, project salary, and current date and time
     const earnedMoney = (roundToMinutes(time) * (salary*60)).toFixed(2);
     const projectSalary = salary * 3600;
     const now = new Date();
@@ -64,6 +64,7 @@ export default function App() {
     return () => clearInterval(timer);
   }, [isTimerActive, time]);
 
+  // Timer Functions
   const startTimer = () => setTimer(true);
   const pauseTimer = () => {
     setTimer(false);
@@ -81,10 +82,10 @@ export default function App() {
   if (loading) {
     return <div>Loading...</div>;
   }
-
   if (error) {
     return <div>Error: {error}</div>;
   }
+
 
   return (
     <>

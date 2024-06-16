@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import { Fab, Zoom, TextField, Button } from '@mui/material';
-import { addSession } from '../ServerComunication';
+import { addSession } from '../../assets/ServerComunication';
 import PropTypes from 'prop-types';
 
 const iconSize = 30;
